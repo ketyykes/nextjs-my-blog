@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/shared/theme-toggle'
+import { SearchCommand } from '@/components/search'
 
 const navLinks = [
   { href: '/', label: '首頁' },
@@ -16,7 +17,11 @@ const navLinks = [
   { href: '/tags', label: '標籤' },
 ]
 
-export function Navbar() {
+interface NavbarProps {
+  articles?: Array<{ title: string; slug: string; date: string }>
+}
+
+export function Navbar({ articles }: NavbarProps) {
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -81,6 +86,7 @@ export function Navbar() {
           >
             筆記站
           </a>
+          {articles && <SearchCommand articles={articles} />}
           <ThemeToggle />
         </div>
 

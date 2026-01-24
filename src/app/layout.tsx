@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { allArticles } from 'content-collections'
 import './globals.css'
 import { ThemeProvider } from '@/components/shared'
 import { Header, Footer } from '@/components/layout'
@@ -71,6 +72,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const articles = allArticles.map((article) => ({
+    title: article.title,
+    slug: article.slug,
+    date: article.date,
+  }))
+
   return (
     <html lang="zh-TW" suppressHydrationWarning>
       <body
@@ -83,7 +90,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col">
-            <Header />
+            <Header articles={articles} />
             <main className="flex-1 pt-16">{children}</main>
             <Footer />
           </div>

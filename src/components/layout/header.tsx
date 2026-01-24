@@ -1,10 +1,14 @@
 import { Navbar } from './navbar'
 import { Banner } from './banner'
 
-export function Header() {
+interface HeaderProps {
+  articles?: Array<{ title: string; slug: string; date: string }>
+}
+
+export function Header({ articles }: HeaderProps) {
   return (
     <header>
-      <Navbar />
+      <Navbar articles={articles} />
       <Banner />
     </header>
   )
