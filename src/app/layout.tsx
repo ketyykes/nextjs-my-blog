@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://wedsatcoming.com'),
   title: {
     default: '水土曜來了',
     template: '%s | 水土曜來了',

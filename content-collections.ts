@@ -16,6 +16,7 @@ const articles = defineCollection({
     date: z.string(),
     tags: z.array(z.string()).default([]),
     slug: z.string().optional(),
+    content: z.string(),
   }),
   transform: async (document, context) => {
     const html = await compileMarkdown(context, document, {
