@@ -122,3 +122,40 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Code block styles */
+.prose pre {
+  @apply rounded-lg border border-border;
+}
+
+.prose pre > code {
+  display: grid;
+  counter-reset: line;
+}
+
+.prose pre > code > [data-line] {
+  @apply border-l-2 border-transparent px-4;
+}
+
+.prose pre > code > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply mr-4 inline-block w-4 text-right text-muted-foreground;
+}
+
+.prose pre > code > [data-highlighted-line] {
+  @apply border-l-primary bg-primary/10;
+}
+
+.prose code:not(pre code) {
+  @apply rounded bg-muted px-1.5 py-0.5 text-sm;
+}
+
+/* Mermaid diagram styles */
+.mermaid {
+  @apply my-4 flex justify-center;
+}
+
+.mermaid svg {
+  @apply max-w-full;
+}

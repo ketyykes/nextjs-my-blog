@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { allArticles } from 'content-collections'
-import { ArticleCard, Pager } from '@/components/article'
+import { ArticleCard, Pager, ArticleContent, GiscusComments } from '@/components/article'
 import dayjs from 'dayjs'
 
 const PER_PAGE = 10
@@ -99,8 +99,11 @@ export default async function TechPageDynamic({ params }: PageProps) {
       <article className="prose prose-slate mx-auto max-w-3xl dark:prose-invert">
         <h1>{article.title}</h1>
         <p className="text-muted-foreground">{formattedDate}</p>
-        <div dangerouslySetInnerHTML={{ __html: article.html }} />
+        <ArticleContent html={article.html} />
       </article>
+      <div className="mx-auto max-w-3xl">
+        <GiscusComments />
+      </div>
     </div>
   )
 }
