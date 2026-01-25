@@ -6,15 +6,10 @@ import { Tag } from 'lucide-react'
 
 /**
  * 將標籤轉換為 URL-safe 的 slug
- * 使用 kebabCase 處理後，再進行 URL 編碼以確保中文字元正確處理
+ * 使用 kebabCase 處理，Next.js 會自動處理 URL 編碼
  */
 function tagToSlug(tag: string): string {
-  const kebab = kebabCase(tag)
-  // 如果包含非 ASCII 字元，進行 URL 編碼
-  if (/[^\x00-\x7F]/.test(kebab)) {
-    return encodeURIComponent(kebab)
-  }
-  return kebab
+  return kebabCase(tag)
 }
 
 // 取得所有標籤及其文章數量
