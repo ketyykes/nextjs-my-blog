@@ -3,49 +3,49 @@
         {
             "cardHead": "水土曜來了技術文章",
             "cardContent": "部落格從零開始建置 Gatsby，引入了 Prismjs 使語法高亮，配置 Gatsby 套件使 markdown 轉譯 html，攝影集部分加入 spinner 和進度百分比以避免 CLS，手刻 ham 選單和展開動畫，引入 MUI 並部署至 Netlify，使用 CloudFlare 域名註冊",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/FrontEnd/blog.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/FrontEnd/blog.jpg",
             "webSrc": "https://wedsatcoming.com/tech-page/",
             "remark": ""
         },
         {
             "cardHead": "Taiwan visit",
             "cardContent": "使用 react、redux、react-leaflet、axios、dayjs，使用者可以查詢台灣旅遊的資訊。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/FrontEnd/f2e_taiwan_travel.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/FrontEnd/f2e_taiwan_travel.jpg",
             "webSrc": "https://ketyykes.github.io/react-taiwan-visit/",
             "remark": ""
         },
         {
             "cardHead": "台南美食地圖",
             "cardContent": "網站全程使用 Bootstrap5 和 vanilla Javascript 並使用其 API 自定義顏色，資料來源是 openData 下載的 JSON 檔案，透過 fetch 相對路徑的 JSON 檔案後結合 Leaflet 的 CDN 讓使用者可以搜尋台南美食",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/FrontEnd/tainan_food_map.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/FrontEnd/tainan_food_map.jpg",
             "webSrc": "https://ketyykes.github.io/tainanFoodMap/",
             "remark": ""
         },
         {
             "cardHead": "台灣 2022 四月份縣市 covid19 趨勢圖",
             "cardContent": "使用 react 和 reactChartJs 結合 MUI 搭配 Grid System 並加入 css module 實作 UI 介面與樣式，原始資料曾使用使用 NodeJs fs 模組搭配 Day.js 重新輸出成 JSON 檔以便整理資料的屬性與值，使用者可以選擇縣市查看折線圖，X 軸表示日期，Y 軸表示感染人數。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/FrontEnd/covid19_taiwan202204.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/FrontEnd/covid19_taiwan202204.jpg",
             "webSrc": "https://ketyykes.github.io/react-covid19-taiwan-chartjs/",
             "remark": ""
         },
         {
             "cardHead": "台灣從 covid19 有資料以來到 2022/05 的圓餅長條圖",
             "cardContent": "使用 vanilla Javascript 和 ChartJs 建置，使用者可以查從 covid 所有紀錄到 2022/05 的感染狀況，包含男女比例的感染人數的圓餅圖、各鄉鎮、縣市的長條圖、該縣市年齡層分布的長條圖。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/FrontEnd/covid19_vanilla_chartJS.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/FrontEnd/covid19_vanilla_chartJS.jpg",
             "webSrc": "",
             "remark": ""
         },
         {
             "cardHead": "2020 用 css 繪製奧運決勝點",
             "cardContent": "使用 scss 和 flex 排版，RWD 響應式斷點設置 768px，在 768px 以下的時候將會顯示設置好的 scss 函式將其 px 除以 2。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/FrontEnd/victory_point.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/FrontEnd/victory_point.jpg",
             "webSrc": "https://ketyykes.github.io/victory-point/",
             "remark": ""
         },
         {
             "cardHead": "柴犬介紹網—祿蔣",
             "cardContent": "全程使用 css，依照網頁架構排序 css 順序，使用 Javascript 製作 layout 達到複用，使用 position 實作手機板選單側邊滑入效果，使用 Javascript 點擊卡片可以放大圖片。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/FrontEnd/shiba.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/FrontEnd/shiba.jpg",
             "webSrc": "https://ketyykes.github.io/shiba/",
             "remark": ""
         }
@@ -54,14 +54,14 @@
         {
             "cardHead": "LineBotPtt",
             "cardContent": "使用官方 lineBotSDK 的 NodeJs 版結合 puppeteer 和 Express 部署到 Heroku，當使用者輸入'ptt'到對話框的時候，將會即時爬 ptt 網頁版的熱門看板並回傳前 5 則文章到對話框，如果還沒爬完將會回傳'資料還沒抓回來'。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/BackEnd/lineBotPtt.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/BackEnd/lineBotPtt.jpg",
             "webSrc": "",
             "remark": ""
         },
         {
             "cardHead": "鐵人賽爬蟲",
             "cardContent": "使用 cheerio 和 axios 爬取鐵人賽網站的文章，使用 Express 結果作為 API 的 JSON 格式回傳，並部署到 Heroku。前端可以使用 fetch 來取得資料，取得的資料包含文章標題、文章連結、作者、作者連結、文章內容。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/BackEnd/ithomeScrape.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/BackEnd/ithomeScrape.jpg",
             "webSrc": "",
             "remark": ""
         }
@@ -70,21 +70,21 @@
         {
             "cardHead": "LineBot 天氣",
             "cardContent": "使用氣象資料開放平台 API 結合 Google 的 AppScript 其內部語言使用 Javascript，得到所有天氣的 JSON 後解析使用者輸入的縣市並計算距離當下三小時與六小時內的氣象，最後使用 Line 官方的 flex message 格式回傳。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/Other/lineBotWeather.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/Other/lineBotWeather.jpg",
             "webSrc": "",
             "remark": ""
         },
         {
             "cardHead": "LLM RAG(Retrieval-Augmented Generation)",
             "cardContent": "透過 LangChainJs 與 Google Embedding API 將其轉換為文本向量儲存在記憶體，使用者可以輸入問題，並根據文本向量和 prompt Template 後與 Google Gemini 結合回答使用者問題。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1678352745/my-blog/Portfolio/Other/llmRAG.jpg",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1678352745/my-blog/Portfolio/Other/llmRAG.jpg",
             "webSrc": "https://github.com/ketyykes/llm-QA-nextjs",
             "remark": ""
         },
         {
             "cardHead": "React 前端工程教學專案",
             "cardContent": "先前至大學舉辦 React 前端教學講座所製作的專案，在本教學專案中，主要運用 React 配合 MUI 建立電影清單應用頁面。利用 React Router 實現路由管理，另外使用 Axios 與 TMDB API 請求，並通過 JSON Server 模擬後端以進行 CRUD 操作以儲存喜愛的電影與待看的內容。適合 React 開發的初學者參考。",
-            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/v1713777193/my-blog/Portfolio/Other/tmdb.png",
+            "cardImageSrc": "https://res.cloudinary.com/deqqrzo3t/image/upload/f_auto,q_auto,w_400/v1713777193/my-blog/Portfolio/Other/tmdb.png",
             "webSrc": "https://github.com/ketyykes/cjcu-react-mui",
             "remark": ""
         }
