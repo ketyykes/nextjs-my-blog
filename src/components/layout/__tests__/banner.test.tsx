@@ -62,7 +62,7 @@ describe('Banner', () => {
     const { container } = render(<Banner />)
     const bannerDiv = container.firstChild
     expect(bannerDiv).toHaveClass('h-[60vh]')
-    expect(bannerDiv).toHaveClass('min-h-[400px]')
+    expect(bannerDiv).toHaveClass('min-h-100')
   })
 
   it('should have overlay styling', () => {

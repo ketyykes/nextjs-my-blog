@@ -15,7 +15,7 @@ export function AboutContent() {
       <div className="mx-auto max-w-2xl">
         <div className="mb-8 flex justify-center">
           {loading && (
-            <Skeleton className="h-[400px] w-full max-w-[400px] rounded-2xl" />
+            <Skeleton className="h-100 w-full max-w-100 rounded-2xl" />
           )}
           <Image
             src={AVATAR_URL}

@@ -89,7 +89,7 @@ describe('PortfolioCard', () => {
   })
 
   it('should render ExternalLink icon in button', () => {
-    const { container } = render(<PortfolioCard {...defaultProps} />)
+    render(<PortfolioCard {...defaultProps} />)
     // Check for svg element inside button
     const button = screen.getByRole('button', { name: /點我觀看/i })
     const svg = button.querySelector('svg')

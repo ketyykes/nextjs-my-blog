@@ -41,7 +41,6 @@ vi.mock('next/image', () => ({
     // Filter out Next.js specific props
     const filteredProps = { ...props }
     delete filteredProps.onLoad
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
     return React.createElement('img', {
       src,
       alt,

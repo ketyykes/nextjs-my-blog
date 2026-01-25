@@ -13,7 +13,7 @@ export function Banner() {
   }
 
   return (
-    <div className="relative h-[60vh] min-h-[400px] w-full">
+    <div className="relative h-[60vh] min-h-100 w-full">
       <Image
         src="/images/banner-night.jpg"
         alt="Banner"
