@@ -12,18 +12,17 @@ export function AboutContent() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mx-auto max-w-2xl">
-        <div className="mb-8 flex justify-center">
+        <div className="relative mb-8 flex justify-center">
           {loading && (
-            <Skeleton className="h-100 w-full max-w-100 rounded-2xl" />
+            <Skeleton className="absolute inset-0 m-auto size-100 rounded-2xl" />
           )}
           <Image
             src={AVATAR_URL}
             alt="作者頭像"
             width={400}
             height={400}
-            className={`rounded-2xl ${loading ? 'hidden' : 'block'}`}
+            className={`rounded-2xl transition-opacity duration-300 ${loading ? 'opacity-0' : 'opacity-100'}`}
             onLoad={() => setLoading(false)}
-            unoptimized
           />
         </div>
         <h1 className="mb-6 text-center text-3xl font-bold">關於我</h1>
