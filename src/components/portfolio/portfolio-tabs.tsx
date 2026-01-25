@@ -14,22 +14,22 @@ export function PortfolioTabs() {
       </TabsList>
       <TabsContent value="frontend" className="mt-6">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {portfolioData.frontEndCardArray.map((item, index) => (
-            <PortfolioCard key={index} {...item} />
+          {portfolioData.frontEndCardArray.map((item) => (
+            <PortfolioCard key={item.id} {...item} />
           ))}
         </div>
       </TabsContent>
       <TabsContent value="backend" className="mt-6">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {portfolioData.backEndCardArray.map((item, index) => (
-            <PortfolioCard key={index} {...item} />
+          {portfolioData.backEndCardArray.map((item) => (
+            <PortfolioCard key={item.id} {...item} />
           ))}
         </div>
       </TabsContent>
       <TabsContent value="other" className="mt-6">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {portfolioData.otherCardArray.map((item, index) => (
-            <PortfolioCard key={index} {...item} />
+          {portfolioData.otherCardArray.map((item) => (
+            <PortfolioCard key={item.id} {...item} />
           ))}
         </div>
       </TabsContent>
