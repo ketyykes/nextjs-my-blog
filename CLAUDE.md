@@ -4,88 +4,116 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 專案概述
 
-這是一個使用 Next.js 15 (App Router)、React 19、TypeScript 與 shadcn/ui 元件庫的現代化模板專案。
-
-## 技術堆疊
-
-- **Framework**: Next.js 15.4.4 (App Router)
-- **React**: 19.1.0 (React Server Components)
-- **TypeScript**: 嚴格模式啟用
-- **樣式**: Tailwind CSS v4 + tw-animate-css
-- **UI 元件**: shadcn/ui (New York style)
-- **圖示**: lucide-react
-- **表單**: react-hook-form + zod + @hookform/resolvers
-- **資料取得**: SWR
-- **動畫**: framer-motion
-- **套件管理器**: pnpm
+「水土曜來了」技術部落格的 Next.js 15 版本，從 Gatsby 5 遷移而來。包含 120+ 篇技術文章，主題涵蓋 JavaScript、React、D3.js、TypeScript、AI/LLM 等。
 
 ## 開發指令
 
 ```bash
-# 開發模式 (使用 Turbopack)
-pnpm dev
+pnpm dev                # 開發伺服器 (Turbopack)
+pnpm build              # 建置正式版本
+pnpm lint               # ESLint 檢查
+pnpm format             # Prettier 格式化
 
-# 建置專案
-pnpm build
+# 單元測試 (Vitest)
+pnpm test               # 監聽模式
+pnpm test:run           # 單次執行
+pnpm test:coverage      # 覆蓋率報告
 
-# 啟動正式環境伺服器
-pnpm start
+# E2E 測試 (Playwright)
+pnpm test:e2e           # 執行 E2E 測試
+pnpm test:e2e:ui        # 互動式 UI 模式
+pnpm test:e2e:report    # 查看測試報告
 
-# 執行 ESLint 檢查
-pnpm lint
-```
-
-## 專案架構
-
-### 目錄結構
-
-```
-src/
-├── app/                    # Next.js App Router
-│   ├── api/               # API 路由 (目前為空)
-│   ├── layout.tsx         # 根佈局 (含 Geist 字型設定)
-│   ├── page.tsx           # 首頁
-│   └── globals.css        # 全域樣式
-├── components/
-│   └── ui/                # shadcn/ui 元件
-│       └── button.tsx     # 按鈕元件
-└── lib/
-    └── utils.ts           # 工具函式 (cn 函式)
-```
-
-### 重要設定
-
-1. **路徑別名**: `@/*` 對應到 `./src/*`
-2. **shadcn/ui 設定** (components.json):
-   - Style: new-york
-   - Base Color: slate
-   - CSS Variables: 啟用
-   - 元件別名：`@/components`, `@/components/ui`, `@/lib`
-
-3. **TypeScript**:
-   - Target: ES2017
-   - 嚴格模式啟用
-   - 支援 Next.js plugin
-
-## 新增 shadcn/ui 元件
-
-使用 shadcn/ui CLI 新增元件：
-
-```bash
+# 新增 shadcn/ui 元件
 npx shadcn@latest add [component-name]
 ```
 
-元件會自動安裝到 `src/components/ui/` 目錄。
+## 架構概覽
 
-## 開發注意事項
+### 技術堆疊
 
-1. **App Router 優先**: 此專案使用 Next.js 15 的 App Router，所有頁面和佈局應放在 `src/app/` 目錄
-2. **React Server Components**: 預設所有元件都是伺服器元件，需要客戶端互動時使用 `"use client"` 指令
-3. **樣式工具**: 使用 `cn()` 函式 (來自 `@/lib/utils`) 合併 Tailwind CSS 類別名稱
-4. **表單驗證**: 使用 react-hook-form + zod 進行型別安全的表單驗證
-5. **Tailwind CSS v4**: 注意此版本的 Tailwind 設定方式可能與 v3 不同
+- **框架**: Next.js 15 (App Router) + React 19
+- **樣式**: Tailwind CSS v4 + shadcn/ui (New York style)
+- **內容管理**: Content Collections + Shiki 語法高亮
+- **測試**: Vitest (單元) + Playwright (E2E)
+- **表單**: react-hook-form + zod
 
-## 環境設定
+### 路由結構
 
-- `.env.example`: 環境變數範本
-- `.env.local`: 本地環境變數 (已在 .gitignore 中)
+| 路徑 | 說明 |
+|------|------|
+| `/` | 首頁 (作品集展示) |
+| `/tech-page` | 文章列表 (分頁) |
+| `/tech-page/[slug]` | 單篇文章 |
+| `/tags` | 標籤總覽 |
+| `/tags/[tag]` | 標籤文章列表 |
+| `/photo` | 攝影集 |
+| `/about` | 關於頁面 |
+
+### 元件架構
+
+```
+src/components/
+├── ui/           # shadcn/ui 基礎元件 (button, card, dialog...)
+├── article/      # 文章相關 (ArticleCard, Pager, GiscusComments, MermaidRenderer)
+├── layout/       # 佈局元件 (Header, Navbar, Banner, Footer)
+├── search/       # 搜尋功能 (SearchCommand 使用 cmdk)
+├── portfolio/    # 作品集 (PortfolioTabs, PortfolioCard)
+├── photo/        # 攝影集 (PhotoAlbum)
+└── shared/       # 共用元件 (ThemeProvider, ThemeToggle, LoadingProgress)
+```
+
+每個元件目錄都有 `index.ts` 統一匯出，使用方式：
+```typescript
+import { ArticleCard, Pager } from '@/components/article'
+import { Header, Footer } from '@/components/layout'
+```
+
+### 內容管理 (Content Collections)
+
+文章存放於 `content/articles/*.md`，Frontmatter 格式：
+
+```yaml
+---
+title: "文章標題"
+date: "YYYY-MM-DD"
+tags: ["React", "TypeScript"]
+---
+```
+
+- Slug 由檔名自動生成（支援中文，見 `content-collections.ts` 的 `slugify` 函式）
+- 語法高亮使用 Shiki (one-dark-pro 主題)
+- 文章 HTML 由 `compileMarkdown` 在建置時生成
+
+### 測試架構
+
+**單元測試** (`src/**/__tests__/*.test.tsx`)
+- 使用 Vitest + React Testing Library
+- happy-dom 作為測試環境
+- 覆蓋率門檻：98%
+- 排除：shadcn/ui 元件、App Router 頁面
+
+**E2E 測試** (`e2e/*.spec.ts`)
+- 使用 Playwright (Chromium)
+- 自動啟動開發伺服器
+- 測試涵蓋：首頁、文章列表、搜尋、標籤、攝影集、關於頁
+
+## 重要設定
+
+- **路徑別名**: `@/*` → `./src/*`
+- **shadcn/ui**: New York style, Slate 主題, CSS Variables 啟用
+- **TypeScript**: 嚴格模式
+- **Prettier**: 無分號、單引號、Tailwind 類別排序
+
+## 第三方服務
+
+- **圖片**: Cloudinary（需設定 image loader）
+- **留言**: Giscus（連結 GitHub Discussions）
+- **部署**: Netlify
+
+## 注意事項
+
+1. **Mermaid 圖表**: 客戶端渲染，使用 `MermaidRenderer` 元件搭配 useEffect
+2. **深色模式**: 透過 `next-themes` 的 `ThemeProvider` 實現
+3. **搜尋功能**: 使用 cmdk 實現命令面板式搜尋 (Cmd+K)
+4. **分頁邏輯**: 每頁 10 篇文章
