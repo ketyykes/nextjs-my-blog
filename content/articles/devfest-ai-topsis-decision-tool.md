@@ -1,7 +1,7 @@
 ---
 title: Google Developers Groups DevFest - AI 落地工作坊：多準則決策輔助工具的坑主記錄
-slug: 2021-10-11T10:01:00.000Z
-date: 2021-10-11T10:01:00.000Z
+slug: 2021-10-11T10:02:00.000Z
+date: 2021-10-11T10:02:00.000Z
 tags: ["AI"]
 ---
 

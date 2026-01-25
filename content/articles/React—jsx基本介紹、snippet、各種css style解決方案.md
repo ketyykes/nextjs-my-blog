@@ -1,7 +1,7 @@
 ---
 title: React—jsx基本介紹、snippet、各種css style解決方案
-slug: 2022-10-15T13:31:00.000Z
-date: 2022-10-15T13:31:00.000Z
+slug: 2022-10-15T13:32:00.000Z
+date: 2022-10-15T13:32:00.000Z
 tags: ["React"]
 ---
 

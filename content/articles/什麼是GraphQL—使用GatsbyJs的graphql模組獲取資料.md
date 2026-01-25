@@ -1,7 +1,7 @@
 ---
 title:  什麼是GraphQL—使用GatsbyJs的graphql模組獲取資料
-slug: 2022-12-17T13:31:00.000Z
-date: 2022-12-17T13:31:00.000Z
+slug: 2022-12-17T13:32:00.000Z
+date: 2022-12-17T13:32:00.000Z
 tags: ["Gatsby.js","React"]
 ---
 <style> 

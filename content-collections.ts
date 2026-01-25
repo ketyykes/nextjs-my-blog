@@ -5,21 +5,35 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { z } from 'zod'
+import dayjs from 'dayjs'
+
+// 追蹤已使用的 slug，用於處理重複日期
+const usedSlugs = new Map<string, number>()
 
 /**
- * 將檔名轉換為 URL-safe slug
- * 保留中文，將空格和特殊字元轉換為連字號
+ * 生成唯一的 slug，重複時自動加上遞增後綴
+ * 例如: 2022-02-06-0555, 2022-02-06-0555-1, 2022-02-06-0555-2
  */
-function slugify(filename: string): string {
-  return filename
-    .replace(/\.md$/, '') // 移除 .md 副檔名
-    .replace(/[、。，！？：；（）【】「」『』]/g, '-') // 中文標點轉連字號
-    .replace(/[—–]/g, '-') // em dash 和 en dash 轉連字號
-    .replace(/\s+/g, '-') // 空白轉連字號
-    .replace(/[^\w\u4e00-\u9fff-]/g, '-') // 非字母數字中文轉連字號
-    .replace(/-+/g, '-') // 連續連字號合併
-    .replace(/^-|-$/g, '') // 移除首尾連字號
-    .toLowerCase()
+function getUniqueSlug(baseSlug: string): string {
+  const count = usedSlugs.get(baseSlug) || 0
+  usedSlugs.set(baseSlug, count + 1)
+
+  if (count === 0) {
+    return baseSlug
+  }
+  return `${baseSlug}-${count}`
+}
+
+/**
+ * 將 frontmatter 的 slug（日期時間格式）轉換為 URL-safe slug
+ * 例如: 2022-02-06T05:55:00.000Z → 2022-02-06-0555
+ */
+function formatDateSlug(dateString: string): string {
+  const date = dayjs(dateString)
+  if (!date.isValid()) {
+    return dateString // 如果不是有效日期，返回原值
+  }
+  return date.format('YYYY-MM-DD-HHmm')
 }
 
 const articles = defineCollection({
@@ -50,8 +64,12 @@ const articles = defineCollection({
       ],
     })
 
-    // 使用檔名生成 slug
-    const slug = slugify(document._meta.path)
+    // 優先使用 frontmatter 的 slug（轉換日期格式），否則使用文章日期作為流水號
+    // 重複的 slug 會自動加上遞增後綴
+    const baseSlug = document.slug
+      ? formatDateSlug(document.slug)
+      : formatDateSlug(document.date)
+    const slug = getUniqueSlug(baseSlug)
 
     return {
       ...document,
