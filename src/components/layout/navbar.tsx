@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
@@ -23,30 +23,45 @@ interface NavbarProps {
 
 export function Navbar({ articles }: NavbarProps) {
   const [isVisible, setIsVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
 
+  // 使用 ref 追蹤 scroll 狀態，避免不必要的重新渲染
+  const lastScrollY = useRef(0)
+  const ticking = useRef(false)
+
+  const updateNavbarVisibility = useCallback(() => {
+    const currentScrollY = window.scrollY
+
+    if (isMobileMenuOpen) {
+      ticking.current = false
+      return
+    }
+
+    if (currentScrollY < 50) {
+      setIsVisible(true)
+    } else if (currentScrollY > lastScrollY.current) {
+      setIsVisible(false)
+    } else {
+      setIsVisible(true)
+    }
+
+    lastScrollY.current = currentScrollY
+    ticking.current = false
+  }, [isMobileMenuOpen])
+
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (isMobileMenuOpen) return
-
-      if (currentScrollY < 50) {
-        setIsVisible(true)
-      } else if (currentScrollY > lastScrollY) {
-        setIsVisible(false)
-      } else {
-        setIsVisible(true)
+      // 使用 requestAnimationFrame 節流
+      if (!ticking.current) {
+        requestAnimationFrame(updateNavbarVisibility)
+        ticking.current = true
       }
-
-      setLastScrollY(currentScrollY)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY, isMobileMenuOpen])
+  }, [updateNavbarVisibility])
 
   return (
     <nav
