@@ -47,7 +47,7 @@ export function PhotoAlbum() {
               height={500}
               className="w-full rounded-2xl"
               onLoad={handleImageLoad}
-              loading="lazy"
+              loading="eager"
               unoptimized
             />
           </div>
