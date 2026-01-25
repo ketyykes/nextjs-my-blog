@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense } from 'react'
+import { Suspense, useMemo, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
   Pagination,
@@ -20,20 +20,26 @@ function PagerContent({ currentPage, totalPages }: PagerProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const getPageUrl = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString())
-    const queryString = params.toString() ? `?${params.toString()}` : ''
-    return page === 1
-      ? `/tech-page${queryString}`
-      : `/tech-page/${page}${queryString}`
-  }
+  const getPageUrl = useCallback(
+    (page: number) => {
+      const params = new URLSearchParams(searchParams.toString())
+      const queryString = params.toString() ? `?${params.toString()}` : ''
+      return page === 1
+        ? `/tech-page${queryString}`
+        : `/tech-page/${page}${queryString}`
+    },
+    [searchParams]
+  )
 
-  const handlePageChange = (page: number) => {
-    router.push(getPageUrl(page))
-  }
+  const handlePageChange = useCallback(
+    (page: number) => {
+      router.push(getPageUrl(page))
+    },
+    [router, getPageUrl]
+  )
 
-  // 計算要顯示的頁碼範圍
-  const getPageNumbers = () => {
+  // 快取頁碼範圍計算結果
+  const pageNumbers = useMemo(() => {
     const pages: number[] = []
     const maxVisible = 5
     let start = Math.max(1, currentPage - Math.floor(maxVisible / 2))
@@ -44,7 +50,7 @@ function PagerContent({ currentPage, totalPages }: PagerProps) {
       pages.push(i)
     }
     return pages
-  }
+  }, [currentPage, totalPages])
 
   if (totalPages <= 1) return null
 
@@ -62,7 +68,7 @@ function PagerContent({ currentPage, totalPages }: PagerProps) {
           />
         </PaginationItem>
 
-        {getPageNumbers().map((page) => (
+        {pageNumbers.map((page) => (
           <PaginationItem key={page}>
             <PaginationLink
               href={getPageUrl(page)}
