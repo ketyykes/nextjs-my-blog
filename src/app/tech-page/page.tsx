@@ -1,16 +1,11 @@
-import { allArticles } from 'content-collections'
 import { ArticleCard, Pager } from '@/components/article'
-
-const PER_PAGE = 10
+import { getSortedArticles } from '@/lib/articles'
+import { ARTICLES_PER_PAGE } from '@/lib/constants'
 
 export default function TechPage() {
-  // 依日期排序（新到舊）
-  const sortedArticles = [...allArticles].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
-
-  const totalPages = Math.ceil(sortedArticles.length / PER_PAGE)
-  const paginatedArticles = sortedArticles.slice(0, PER_PAGE)
+  const sortedArticles = getSortedArticles()
+  const totalPages = Math.ceil(sortedArticles.length / ARTICLES_PER_PAGE)
+  const paginatedArticles = sortedArticles.slice(0, ARTICLES_PER_PAGE)
 
   return (
     <div className="container mx-auto px-4 py-8">

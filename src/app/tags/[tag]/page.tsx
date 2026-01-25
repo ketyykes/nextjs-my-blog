@@ -1,44 +1,18 @@
 import { notFound } from 'next/navigation'
-import { allArticles } from 'content-collections'
-import { kebabCase } from 'lodash-es'
 import { ArticleCard } from '@/components/article'
+import {
+  getAllUniqueTags,
+  tagToSlug,
+  findOriginalTag,
+  getArticlesByTag,
+} from '@/lib/tags'
 
 interface PageProps {
   params: Promise<{ tag: string }>
 }
 
-// 取得所有唯一標籤
-function getAllTags() {
-  const tags = new Set<string>()
-  allArticles.forEach((article) => {
-    article.tags.forEach((tag) => tags.add(tag))
-  })
-  return Array.from(tags)
-}
-
-/**
- * 將標籤轉換為 URL-safe 的 slug
- * 使用 kebabCase 處理，Next.js 會自動處理 URL 編碼
- */
-function tagToSlug(tag: string): string {
-  return kebabCase(tag)
-}
-
-// 根據 kebabCase 標籤找到原始標籤名稱
-function findOriginalTag(kebabTag: string) {
-  const tags = getAllTags()
-  return tags.find((tag) => kebabCase(tag) === kebabTag)
-}
-
-// 取得該標籤的所有文章
-function getArticlesByTag(tag: string) {
-  return allArticles
-    .filter((article) => article.tags.includes(tag))
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-}
-
 export async function generateStaticParams() {
-  const tags = getAllTags()
+  const tags = getAllUniqueTags()
   return tags.map((tag) => ({
     tag: tagToSlug(tag),
   }))

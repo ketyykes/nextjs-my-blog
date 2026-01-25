@@ -1,34 +1,26 @@
 import { notFound } from 'next/navigation'
 import { allArticles } from 'content-collections'
-import { ArticleCard, Pager, ArticleContent, GiscusComments } from '@/components/article'
 import dayjs from 'dayjs'
-
-const PER_PAGE = 10
+import {
+  ArticleCard,
+  Pager,
+  ArticleContent,
+  GiscusComments,
+} from '@/components/article'
+import {
+  getSortedArticles,
+  getArticleBySlug,
+  isPageNumber,
+} from '@/lib/articles'
+import { ARTICLES_PER_PAGE } from '@/lib/constants'
 
 interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-// 判斷是否為純數字（分頁）
-function isPageNumber(slug: string): boolean {
-  return /^\d+$/.test(slug)
-}
-
-// 取得文章
-function getArticleBySlug(slug: string) {
-  return allArticles.find((article) => article.slug === slug)
-}
-
-// 取得排序後的文章
-function getSortedArticles() {
-  return [...allArticles].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  )
-}
-
 export async function generateStaticParams() {
   const sortedArticles = getSortedArticles()
-  const totalPages = Math.ceil(sortedArticles.length / PER_PAGE)
+  const totalPages = Math.ceil(sortedArticles.length / ARTICLES_PER_PAGE)
 
   // 生成分頁路徑（從第 2 頁開始）
   const pageParams = Array.from({ length: totalPages - 1 }, (_, i) => ({
@@ -55,16 +47,16 @@ export default async function TechPageDynamic({ params }: PageProps) {
     }
 
     const sortedArticles = getSortedArticles()
-    const totalPages = Math.ceil(sortedArticles.length / PER_PAGE)
+    const totalPages = Math.ceil(sortedArticles.length / ARTICLES_PER_PAGE)
 
     if (currentPage > totalPages) {
       notFound()
     }
 
-    const startIndex = (currentPage - 1) * PER_PAGE
+    const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE
     const paginatedArticles = sortedArticles.slice(
       startIndex,
-      startIndex + PER_PAGE
+      startIndex + ARTICLES_PER_PAGE
     )
 
     return (

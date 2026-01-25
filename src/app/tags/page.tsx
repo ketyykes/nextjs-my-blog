@@ -1,31 +1,7 @@
 import Link from 'next/link'
-import { allArticles } from 'content-collections'
-import { kebabCase } from 'lodash-es'
-import { Badge } from '@/components/ui/badge'
 import { Tag } from 'lucide-react'
-
-/**
- * 將標籤轉換為 URL-safe 的 slug
- * 使用 kebabCase 處理，Next.js 會自動處理 URL 編碼
- */
-function tagToSlug(tag: string): string {
-  return kebabCase(tag)
-}
-
-// 取得所有標籤及其文章數量
-function getAllTags() {
-  const tagCount: Record<string, number> = {}
-
-  allArticles.forEach((article) => {
-    article.tags.forEach((tag) => {
-      tagCount[tag] = (tagCount[tag] || 0) + 1
-    })
-  })
-
-  return Object.entries(tagCount)
-    .map(([tag, count]) => ({ tag, count }))
-    .sort((a, b) => b.count - a.count)
-}
+import { Badge } from '@/components/ui/badge'
+import { getAllTagsWithCount, tagToSlug } from '@/lib/tags'
 
 export const metadata = {
   title: '標籤',
@@ -33,7 +9,7 @@ export const metadata = {
 }
 
 export default function TagsPage() {
-  const tags = getAllTags()
+  const tags = getAllTagsWithCount()
 
   return (
     <div className="container mx-auto px-4 py-8">
