@@ -2,7 +2,7 @@ import { withContentCollections } from '@content-collections/next'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
   trailingSlash: false,
   images: {
     unoptimized: true,
