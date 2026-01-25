@@ -1,27 +1,28 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import Image from 'next/image'
-import { LoadingProgress } from '@/components/shared'
 import { cn } from '@/lib/utils'
-
-const IMAGE_AMOUNT = 97
-const CLOUDINARY_BASE = 'https://res.cloudinary.com/deqqrzo3t/image/upload'
+import { LoadingProgress } from '@/components/shared'
+import {
+  CLOUDINARY_BASE_URL,
+  PHOTO_ALBUM_IMAGE_COUNT,
+} from '@/lib/constants'
 
 export function PhotoAlbum() {
   const [loading, setLoading] = useState(true)
   const [progress, setProgress] = useState(0)
   const loadedCount = useRef(0)
 
-  const handleImageLoad = () => {
+  const handleImageLoad = useCallback(() => {
     loadedCount.current += 1
-    const newProgress = (loadedCount.current / IMAGE_AMOUNT) * 100
+    const newProgress = (loadedCount.current / PHOTO_ALBUM_IMAGE_COUNT) * 100
     setProgress(newProgress)
 
-    if (loadedCount.current >= IMAGE_AMOUNT) {
+    if (loadedCount.current >= PHOTO_ALBUM_IMAGE_COUNT) {
       setLoading(false)
     }
-  }
+  }, [])
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -37,15 +38,16 @@ export function PhotoAlbum() {
           loading && 'invisible h-0 overflow-hidden'
         )}
       >
-        {Array.from({ length: IMAGE_AMOUNT }).map((_, index) => (
-          <div key={index} className="mb-4 break-inside-avoid">
+        {Array.from({ length: PHOTO_ALBUM_IMAGE_COUNT }).map((_, index) => (
+          <div key={`photo-${index + 1}`} className="mb-4 break-inside-avoid">
             <Image
-              src={`${CLOUDINARY_BASE}/v1678350386/my-blog/instagram_post/igpo-${index + 1}.jpg`}
+              src={`${CLOUDINARY_BASE_URL}/v1678350386/my-blog/instagram_post/igpo-${index + 1}.jpg`}
               alt={`Instagram post ${index + 1}`}
               width={400}
               height={500}
               className="w-full rounded-2xl"
               onLoad={handleImageLoad}
+              loading="lazy"
               unoptimized
             />
           </div>
