@@ -125,7 +125,10 @@ describe('MermaidRenderer', () => {
     })
 
     await waitFor(() => {
-      expect(consoleError).toHaveBeenCalledWith('Mermaid rendering failed:', expect.any(Error))
+      expect(consoleError).toHaveBeenCalledWith(
+        'Mermaid rendering failed:',
+        'Render error'
+      )
     })
 
     consoleError.mockRestore()
