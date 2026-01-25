@@ -16,10 +16,35 @@ function getAllTags() {
   return Array.from(tags)
 }
 
+/**
+ * 將標籤轉換為 URL-safe 的 slug
+ * 使用 kebabCase 處理後，再進行 URL 編碼以確保中文字元正確處理
+ */
+function tagToSlug(tag: string): string {
+  const kebab = kebabCase(tag)
+  // 如果包含非 ASCII 字元，進行 URL 編碼
+  if (/[^\x00-\x7F]/.test(kebab)) {
+    return encodeURIComponent(kebab)
+  }
+  return kebab
+}
+
+/**
+ * 將 URL slug 還原為可比對的格式
+ */
+function slugToComparable(slug: string): string {
+  try {
+    return decodeURIComponent(slug)
+  } catch {
+    return slug
+  }
+}
+
 // 根據 kebabCase 標籤找到原始標籤名稱
 function findOriginalTag(kebabTag: string) {
   const tags = getAllTags()
-  return tags.find((tag) => kebabCase(tag) === kebabTag)
+  const decodedTag = slugToComparable(kebabTag)
+  return tags.find((tag) => kebabCase(tag) === decodedTag)
 }
 
 // 取得該標籤的所有文章
@@ -32,7 +57,7 @@ function getArticlesByTag(tag: string) {
 export async function generateStaticParams() {
   const tags = getAllTags()
   return tags.map((tag) => ({
-    tag: kebabCase(tag),
+    tag: tagToSlug(tag),
   }))
 }
 
