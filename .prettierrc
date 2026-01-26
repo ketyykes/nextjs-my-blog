@@ -3,5 +3,9 @@
   "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "plugins": ["prettier-plugin-autocorrect", "prettier-plugin-tailwindcss"]
+  "plugins": [
+    "prettier-plugin-autocorrect",
+    "prettier-plugin-tailwindcss"
+  ],
+  "tailwindStylesheet": "./src/app/globals.css"
 }
