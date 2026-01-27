@@ -275,17 +275,6 @@ export default function Profile() {
 ```bash
 cp .env.example .env.local
 ```
-
-## 🤝 貢獻
-
-歡迎提交 Issue 或 Pull Request！
-
-## 📄 授權
-
-MIT License
-
-## 🔗 相關資源
-
 - [Next.js 文件](https://nextjs.org/docs)
 - [React 文件](https://react.dev)
 - [shadcn/ui 文件](https://ui.shadcn.com)
