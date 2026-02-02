@@ -63,10 +63,10 @@ describe('PortfolioCard', () => {
     expect(screen.getByText('Different description')).toBeInTheDocument()
   })
 
-  it('should have correct image aspect ratio class', () => {
-    const { container } = render(<PortfolioCard {...defaultProps} />)
-    const imageWrapper = container.querySelector('.aspect-video')
-    expect(imageWrapper).toBeInTheDocument()
+  it('should have responsive image with rounded corners', () => {
+    render(<PortfolioCard {...defaultProps} />)
+    const image = screen.getByRole('img')
+    expect(image).toHaveClass('w-full', 'rounded-md')
   })
 
   it('should have centered title', () => {

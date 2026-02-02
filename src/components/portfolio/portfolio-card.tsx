@@ -24,15 +24,14 @@ export function PortfolioCard({
         <CardTitle className="text-center text-lg">{cardHead}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="relative aspect-video w-full overflow-hidden rounded-md">
-          <Image
-            src={cardImageSrc}
-            alt={cardHead}
-            fill
-            className="object-cover"
-            unoptimized
-          />
-        </div>
+        <Image
+          src={cardImageSrc}
+          alt={cardHead}
+          width={400}
+          height={300}
+          className="w-full rounded-md"
+          unoptimized
+        />
         <p className="text-sm text-muted-foreground">{cardContent}</p>
         {webSrc && (
           <Button
