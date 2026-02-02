@@ -8,28 +8,40 @@ export function PortfolioTabs() {
   return (
     <Tabs defaultValue="frontend" className="w-full">
       <TabsList className="grid w-full grid-cols-3">
-        <TabsTrigger value="frontend">Front-end</TabsTrigger>
-        <TabsTrigger value="backend">Backend</TabsTrigger>
-        <TabsTrigger value="other">Other</TabsTrigger>
+        <TabsTrigger value="frontend" className="cursor-pointer">
+          Front-end
+        </TabsTrigger>
+        <TabsTrigger value="backend" className="cursor-pointer">
+          Backend
+        </TabsTrigger>
+        <TabsTrigger value="other" className="cursor-pointer">
+          Other
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="frontend" className="mt-6">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 xl:columns-4">
           {portfolioData.frontEndCardArray.map((item) => (
-            <PortfolioCard key={item.id} {...item} />
+            <div key={item.id} className="mb-6 break-inside-avoid">
+              <PortfolioCard {...item} />
+            </div>
           ))}
         </div>
       </TabsContent>
       <TabsContent value="backend" className="mt-6">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 xl:columns-4">
           {portfolioData.backEndCardArray.map((item) => (
-            <PortfolioCard key={item.id} {...item} />
+            <div key={item.id} className="mb-6 break-inside-avoid">
+              <PortfolioCard {...item} />
+            </div>
           ))}
         </div>
       </TabsContent>
       <TabsContent value="other" className="mt-6">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="columns-1 gap-6 sm:columns-2 lg:columns-3 xl:columns-4">
           {portfolioData.otherCardArray.map((item) => (
-            <PortfolioCard key={item.id} {...item} />
+            <div key={item.id} className="mb-6 break-inside-avoid">
+              <PortfolioCard {...item} />
+            </div>
           ))}
         </div>
       </TabsContent>

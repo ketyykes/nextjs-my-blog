@@ -19,7 +19,7 @@ export function PortfolioCard({
   webSrc,
 }: PortfolioCardProps) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="h-fit overflow-hidden">
       <CardHeader className="pb-2">
         <CardTitle className="text-center text-lg">{cardHead}</CardTitle>
       </CardHeader>
@@ -37,7 +37,7 @@ export function PortfolioCard({
         {webSrc && (
           <Button
             variant="default"
-            className="w-full"
+            className="w-full cursor-pointer"
             onClick={() => window.open(webSrc, '_blank')}
           >
             <ExternalLink className="mr-2 h-4 w-4" />
