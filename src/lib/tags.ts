@@ -2,10 +2,21 @@ import { allArticles, Article } from 'content-collections'
 import { kebabCase } from 'lodash-es'
 
 /**
+ * 檢查字串是否包含非 ASCII 字元（如中文）
+ */
+function containsNonAscii(str: string): boolean {
+  return /[^\x00-\x7F]/.test(str)
+}
+
+/**
  * 將標籤轉換為 URL-safe 的 slug
- * 使用 kebabCase 處理，Next.js 會自動處理 URL 編碼
+ * - 純英文：使用 kebabCase
+ * - 包含中文：使用 encodeURIComponent
  */
 export function tagToSlug(tag: string): string {
+  if (containsNonAscii(tag)) {
+    return encodeURIComponent(tag)
+  }
   return kebabCase(tag)
 }
 
@@ -38,11 +49,23 @@ export function getAllTagsWithCount(): Array<{ tag: string; count: number }> {
 }
 
 /**
- * 根據 kebabCase 標籤找到原始標籤名稱
+ * 根據 slug 找到原始標籤名稱
+ * 支援 kebabCase 和 URL 編碼兩種格式
  */
-export function findOriginalTag(kebabTag: string): string | undefined {
+export function findOriginalTag(slug: string): string | undefined {
   const tags = getAllUniqueTags()
-  return tags.find((tag) => kebabCase(tag) === kebabTag)
+
+  // 先嘗試解碼 URL 編碼的標籤
+  try {
+    const decoded = decodeURIComponent(slug)
+    const exactMatch = tags.find((tag) => tag === decoded)
+    if (exactMatch) return exactMatch
+  } catch {
+    // 解碼失敗，繼續嘗試 kebabCase 匹配
+  }
+
+  // 嘗試 kebabCase 匹配（英文標籤）
+  return tags.find((tag) => kebabCase(tag) === slug)
 }
 
 /**
