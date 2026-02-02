@@ -52,7 +52,18 @@ const articles = defineCollection({
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
         rehypeSlug,
-        [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+        [
+          rehypeAutolinkHeadings,
+          {
+            behavior: 'append',
+            content: {
+              type: 'element',
+              tagName: 'span',
+              properties: { className: ['heading-anchor'] },
+              children: [{ type: 'text', value: ' #' }],
+            },
+          },
+        ],
         [
           rehypePrettyCode,
           {
