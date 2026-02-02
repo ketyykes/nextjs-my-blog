@@ -12,13 +12,13 @@ export function ArticleCard({ title, date, slug }: ArticleCardProps) {
   const formattedDate = dayjs(date).format('YYYY-MM-DD ddd')
 
   return (
-    <Card className="transition-colors hover:bg-accent">
-      <CardContent className="p-4">
-        <Link href={`/tech-page/${slug}`} className="block">
+    <Link href={`/tech-page/${slug}`} className="block">
+      <Card className="transition-colors hover:bg-accent">
+        <CardContent className="p-4">
           <h3 className="font-semibold hover:text-primary">{title}</h3>
           <p className="mt-1 text-sm text-muted-foreground">{formattedDate}</p>
-        </Link>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }
