@@ -11,6 +11,7 @@ import { SearchCommand } from '@/components/search'
 
 const navLinks = [
   { href: '/', label: '首頁' },
+  { href: '/portfolio', label: '作品集' },
   { href: '/about', label: '關於我' },
   { href: '/tech-page', label: '技術文章' },
   { href: '/photo', label: '攝影集' },
