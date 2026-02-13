@@ -33,7 +33,7 @@ export function PortfolioCard({
           unoptimized
         />
         <p className="text-sm text-muted-foreground">{cardContent}</p>
-        {webSrc && (
+        {webSrc ? (
           <Button
             variant="default"
             className="w-full cursor-pointer"
@@ -42,7 +42,7 @@ export function PortfolioCard({
             <ExternalLink className="mr-2 h-4 w-4" />
             點我觀看
           </Button>
-        )}
+        ) : null}
       </CardContent>
     </Card>
   )

@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import mermaid from 'mermaid'
 
 interface MermaidRendererProps {
   content: string
@@ -21,10 +20,12 @@ export function MermaidRenderer({ content }: MermaidRendererProps) {
       if (initialized.current) return
       initialized.current = true
 
+      const mermaid = (await import('mermaid')).default
+
       mermaid.initialize({
         startOnLoad: false,
         theme: 'default',
-        securityLevel: 'loose',
+        securityLevel: 'strict',
       })
 
       const codeBlocks = document.querySelectorAll('code.language-mermaid')
@@ -53,10 +54,16 @@ export function MermaidRenderer({ content }: MermaidRendererProps) {
           const errorContainer = document.createElement('div')
           errorContainer.className =
             'my-4 rounded-md border border-destructive/50 bg-destructive/10 p-4'
-          errorContainer.innerHTML = `
-            <p class="text-sm font-medium text-destructive">Mermaid 圖表渲染失敗</p>
-            <p class="mt-1 text-xs text-muted-foreground">${errorMessage}</p>
-          `
+          const titleEl = document.createElement('p')
+          titleEl.className = 'text-sm font-medium text-destructive'
+          titleEl.textContent = 'Mermaid 圖表渲染失敗'
+
+          const messageEl = document.createElement('p')
+          messageEl.className = 'mt-1 text-xs text-muted-foreground'
+          messageEl.textContent = errorMessage
+
+          errorContainer.appendChild(titleEl)
+          errorContainer.appendChild(messageEl)
 
           // 在原始程式碼區塊後插入錯誤提示
           parent.insertAdjacentElement('afterend', errorContainer)
