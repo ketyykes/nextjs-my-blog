@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useCallback } from 'react'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
@@ -10,7 +10,14 @@ const Scene3D = dynamic(() => import('./scene-3d'), { ssr: false })
 
 export function HeroSection() {
   const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === 'dark'
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  /** hydration 前預設為 dark，避免 SSR/client 不一致 */
+  const isDark = mounted ? resolvedTheme === 'dark' : true
 
   const handleScrollDown = useCallback(() => {
     window.scrollTo({

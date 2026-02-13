@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useEffect } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { Stars, Cloud } from '@react-three/drei'
 import { useTheme } from 'next-themes'
@@ -62,14 +62,16 @@ function MouseParallax() {
   const mouse = useRef({ x: 0, y: 0 })
   const target = useRef({ x: 0, y: 0 })
 
-  useFrame(() => {
-    if (typeof window === 'undefined') return
+  useEffect(() => {
     const handler = (e: MouseEvent) => {
       mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2
       mouse.current.y = (e.clientY / window.innerHeight - 0.5) * 2
     }
-    window.addEventListener('mousemove', handler, { once: true })
+    window.addEventListener('mousemove', handler)
+    return () => window.removeEventListener('mousemove', handler)
+  }, [])
 
+  useFrame(() => {
     target.current.x += (mouse.current.x * 0.08 - target.current.x) * 0.05
     target.current.y += (mouse.current.y * 0.05 - target.current.y) * 0.05
 

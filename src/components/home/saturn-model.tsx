@@ -112,10 +112,10 @@ export function SaturnModel() {
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     if (groupRef.current) {
       groupRef.current.rotation.z =
-        Math.sin(Date.now() * 0.0001) * 0.05 + 0.15
+        Math.sin(clock.getElapsedTime() * 0.1) * 0.05 + 0.15
     }
   })
 
