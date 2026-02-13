@@ -39,7 +39,7 @@ describe('MermaidRenderer', () => {
       expect(mermaid.initialize).toHaveBeenCalledWith({
         startOnLoad: false,
         theme: 'default',
-        securityLevel: 'loose',
+        securityLevel: 'strict',
       })
     })
   })

@@ -10,11 +10,11 @@ vi.mock('next/navigation', () => ({
 
 describe('Banner', () => {
   beforeEach(() => {
-    mockPathname.mockReturnValue('/')
+    mockPathname.mockReturnValue('/portfolio')
   })
 
-  it('should render on home page', () => {
-    mockPathname.mockReturnValue('/')
+  it('should render on portfolio page', () => {
+    mockPathname.mockReturnValue('/portfolio')
     render(<Banner />)
     expect(screen.getByText('水土曜來了')).toBeInTheDocument()
   })
@@ -29,6 +29,12 @@ describe('Banner', () => {
     mockPathname.mockReturnValue('/tags')
     render(<Banner />)
     expect(screen.getByText('水土曜來了')).toBeInTheDocument()
+  })
+
+  it('should not render on home page', () => {
+    mockPathname.mockReturnValue('/')
+    const { container } = render(<Banner />)
+    expect(container.firstChild).toBeNull()
   })
 
   it('should not render on tech-page', () => {
@@ -50,7 +56,6 @@ describe('Banner', () => {
   })
 
   it('should render the banner image', () => {
-    mockPathname.mockReturnValue('/')
     render(<Banner />)
     const image = screen.getByRole('img')
     expect(image).toHaveAttribute('src', '/images/banner-night.jpg')
@@ -58,7 +63,6 @@ describe('Banner', () => {
   })
 
   it('should have correct height classes', () => {
-    mockPathname.mockReturnValue('/')
     const { container } = render(<Banner />)
     const bannerDiv = container.firstChild
     expect(bannerDiv).toHaveClass('h-[60vh]')
@@ -66,22 +70,18 @@ describe('Banner', () => {
   })
 
   it('should have overlay styling', () => {
-    mockPathname.mockReturnValue('/')
     const { container } = render(<Banner />)
     const overlay = container.querySelector('.bg-black\\/40')
     expect(overlay).toBeInTheDocument()
   })
 
   it('should have priority loading for the image', () => {
-    mockPathname.mockReturnValue('/')
     render(<Banner />)
-    // Priority is handled by Next.js Image, checking for img presence is sufficient
     const image = screen.getByRole('img')
     expect(image).toBeInTheDocument()
   })
 
   it('should have responsive text sizing', () => {
-    mockPathname.mockReturnValue('/')
     render(<Banner />)
     const heading = screen.getByText('水土曜來了')
     expect(heading).toHaveClass('text-4xl')

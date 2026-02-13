@@ -2,15 +2,22 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { GiscusComments } from '../giscus-comments'
 
-// Mock @giscus/react
-vi.mock('@giscus/react', () => ({
-  default: (props: Record<string, unknown>) => (
+const { MockGiscus, mockUseTheme } = vi.hoisted(() => {
+  const MockGiscus = (props: Record<string, unknown>) => (
     <div data-testid="giscus" {...props} />
-  ),
+  )
+  const mockUseTheme = vi.fn()
+  return { MockGiscus, mockUseTheme }
+})
+
+vi.mock('@giscus/react', () => ({
+  default: MockGiscus,
 }))
 
-// Mock next-themes with different values
-const mockUseTheme = vi.fn()
+// Mock next/dynamic，使其直接回傳 mock 元件而非延遲載入
+vi.mock('next/dynamic', () => ({
+  default: () => MockGiscus,
+}))
 
 vi.mock('next-themes', () => ({
   useTheme: () => mockUseTheme(),
