@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-const PATHS_WITH_BANNER = ['/', '/photo', '/tags']
+const PATHS_WITH_BANNER = ['/portfolio', '/photo', '/tags']
 
 export function Banner() {
   const pathname = usePathname()
