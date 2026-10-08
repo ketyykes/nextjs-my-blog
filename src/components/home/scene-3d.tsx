@@ -5,6 +5,7 @@ import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import { useTheme } from 'next-themes'
 import { StarField } from './star-field'
 import { SaturnModel } from './saturn-model'
+import { MercuryModel } from './mercury-model'
 
 export default function Scene3D() {
   const { resolvedTheme } = useTheme()
@@ -25,6 +26,7 @@ export default function Scene3D() {
 
       <StarField />
       <SaturnModel />
+      <MercuryModel />
 
       {/* Bloom 後處理（暗色模式發光更強） */}
       <EffectComposer>
